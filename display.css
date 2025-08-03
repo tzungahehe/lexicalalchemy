@@ -1,54 +1,49 @@
 body {
-  font-family: sans-serif;
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: row; /* Nằm ngang: sidebar bên trái, playArea bên phải */
-  background: #f0f0f0;
-}
+    font-family: sans-serif;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    background: #f0f0f0;
+  }
+  #sidebar {
+    width: 200px;
+    background: white;
+    padding: 10px;
+    border-right: 2px solid #ccc;
+    overflow-y: auto;
+  }
+  #sidebar h2 { font-size: 18px; margin: 0 0 10px; }
+  .item {
+    padding: 5px;
+    margin: 3px 0;
+    background: #d9f0ff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .item.selected {
+    background: #ffd966;
+  }
+  #playArea {
+    flex: 1;
+    padding: 20px;
+  }
+  #result {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+  }
+</style>
+</head>
+<body>
 
-/* ==== Sidebar ==== */
-#sidebar {
-  width: 220px;
-  background: white;
-  border-right: 2px solid #ccc;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
+<div id="sidebar">
+  <h2>Items</h2>
+  <div id="itemsList"></div>
+</div>
 
-#sidebar h2 {
-  font-size: 18px;
-  margin: 0 0 10px;
-}
-
-#itemsList {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.item {
-  padding: 5px;
-  margin: 3px 0;
-  background: #d9f0ff;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.item.selected {
-  background: #ffd966;
-}
-
-/* ==== Play Area ==== */
-#playArea {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-#result {
-  font-size: 18px;
-  margin-top: 20px;
-  color: #333;
-}
+<div id="playArea">
+  <h2>Kết hợp 2 item</h2>
+  <p>Chọn 2 item từ danh sách bên trái để thử kết hợp.</p>
+  <div id="result"></div>
+</div>
