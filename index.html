@@ -135,76 +135,7 @@
     console.error("Không thể load items.txt hoặc recipes.txt:", err);
     alert("⚠ Không thể load dữ liệu. Kiểm tra lại file .txt!");
   });
-  // Gán draggable cho mỗi item
-function renderItems() {
-  itemsList.innerHTML = "";
-  unlocked.sort().forEach(item => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.textContent = item;
-    div.draggable = true;
-
-    // Khi bắt đầu kéo
-    div.addEventListener("dragstart", e => {
-      e.dataTransfer.setData("text/plain", item);
-    });
-
-    itemsList.appendChild(div);
-  });
-}
-
-// Cho phép drop vào khu vực chơi
-const playArea = document.getElementById("playArea");
-let droppedItems = [];
-
-playArea.addEventListener("dragover", e => {
-  e.preventDefault(); // Cho phép drop
-});
-
-playArea.addEventListener("drop", e => {
-  e.preventDefault();
-  const item = e.dataTransfer.getData("text/plain");
-
-  // Hiển thị item ở vị trí thả
-  const span = document.createElement("div");
-  span.textContent = item;
-  span.className = "item";
-  span.style.position = "absolute";
-  span.style.left = e.offsetX + "px";
-  span.style.top = e.offsetY + "px";
-  playArea.appendChild(span);
-
-  // Lưu lại item vừa thả để kiểm tra kết hợp
-  droppedItems.push(item);
-
-  if (droppedItems.length === 2) {
-    tryCombineDrag(droppedItems[0], droppedItems[1]);
-    droppedItems = [];
-  }
-});
-
-// Kết hợp khi thả 2 item
-function tryCombineDrag(item1, item2) {
-  const combo1 = item1 + "+" + item2;
-  const combo2 = item2 + "+" + item1;
-  const result = recipes[combo1] || recipes[combo2];
-
-  if (result) {
-    if (!unlocked.includes(result)) {
-      unlocked.push(result);
-      localStorage.setItem("unlockedItems", JSON.stringify(unlocked));
-      alert(`🎉 Bạn đã mở khóa: ${result}!`);
-      renderItems();
-    } else {
-      alert(`✅ Bạn đã có: ${result}.`);
-    }
-  } else {
-    alert("❌ Không thể kết hợp!");
-  }
-}
-
 </script>
 
 </body>
 </html>
-
