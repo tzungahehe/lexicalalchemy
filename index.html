@@ -56,15 +56,44 @@
 
 <script>
   // ---- Dữ liệu công thức ----
-  const recipes = {
-    "Earth+Water": "Mud",
-    "Fire+Water": "Steam",
-    "Air+Water": "Rain",
-    "Love+Short": "Dalliance",
-    "Fire+Air": "Energy",
-    "Earth+Fire": "Lava",
-    "Water+Lava": "Stone"
-  };
+Promise.all([
+  fetch("items.txt").then(res => res.text()),
+  fetch("recipes.txt").then(res => res.text())
+]).then(([itemsText, recipesText]) => {
+  
+  // Xử lý items
+  const defaultItems = itemsText.trim().split(/\r?\n/).map(i => i.trim());
+  unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
+
+  // Xử lý recipes
+  recipesText.trim().split(/\r?\n/).forEach(line => {
+    const [combo, result] = line.split("=");
+    if (combo && result) {
+      recipes[combo.trim()] = result.trim();
+    }
+  });
+
+  renderItems();
+});
+
+  let recipes = {};
+
+function loadRecipes() {
+  return fetch("recipes.txt")
+    .then(response => response.text())
+    .then(text => {
+      recipes = {};
+      text.trim().split(/\r?\n/).forEach(line => {
+        const [combo, result] = line.split("=");
+        if (combo && result) {
+          recipes[combo.trim()] = result.trim();
+        }
+      });
+    })
+    .catch(err => {
+      console.error("Không thể load recipes.txt:", err);
+    });
+}
 
   // ---- Chuẩn hóa key ----
   function key(item1, item2) {
@@ -138,4 +167,5 @@
 
 </body>
 </html>
+
 
