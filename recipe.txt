@@ -5,3 +5,4 @@ Love+Short=Dalliance
 Fire+Air=Energy
 Earth+Fire=Lava
 Water+Lava=Stone
+Bird+Shit=Guano
