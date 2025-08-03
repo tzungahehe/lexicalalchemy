@@ -1,0 +1,7 @@
+Earth+Water=Mud
+Fire+Water=Steam
+Air+Water=Rain
+Love+Short=Dalliance
+Fire+Air=Energy
+Earth+Fire=Lava
+Water+Lava=Stone
