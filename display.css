@@ -3,6 +3,7 @@ body {
   margin: 0;
   height: 100vh;
   display: flex;
+  flex-direction: row; /* Nằm ngang: sidebar bên trái, playArea bên phải */
   background: #f0f0f0;
 }
 
@@ -24,7 +25,6 @@ body {
 #itemsList {
   flex: 1;
   overflow-y: auto;
-  padding-right: 5px;
 }
 
 .item {
