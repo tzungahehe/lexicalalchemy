@@ -7,3 +7,4 @@ Earth+Fire=Lava
 Water+Lava=Stone
 Bird+Shit=Guano
 Love+Bird=Lovebird
+Love+Shit=Situationship
