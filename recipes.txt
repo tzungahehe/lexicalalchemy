@@ -6,3 +6,4 @@ Fire+Air=Energy
 Earth+Fire=Lava
 Water+Lava=Stone
 Bird+Shit=Guano
+Love+Bird=Lovebird
