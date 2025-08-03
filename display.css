@@ -3,20 +3,23 @@ body {
   height: 100vh;
   margin: 0;
   background: #f0f0f0;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-#playArea {
+#itemsList {
   background: white;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  overflow-y: auto;
+  max-height: 150px;
 }
 
 .item {
-  display: inline-block;
   padding: 5px 10px;
-  margin: 5px;
   background: #d9f0ff;
   border-radius: 5px;
   cursor: pointer;
@@ -25,6 +28,11 @@ body {
 
 .item.selected {
   background: #ffd966;
+}
+
+#playArea {
+  flex: 1;
+  padding: 20px;
 }
 
 #result {
