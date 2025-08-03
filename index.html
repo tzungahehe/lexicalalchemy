@@ -71,13 +71,10 @@
     return [item1, item2].sort().join("+");
   }
 
-  // ---- Load tiến trình ----
-  let unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || ["Earth", "Water", "Fire", "Air", "Love", "Short"];
-
   const itemsList = document.getElementById("itemsList");
   const resultBox = document.getElementById("result");
-
   let selected = [];
+  let unlocked = [];
 
   // ---- Vẽ danh sách item ----
   function renderItems() {
@@ -126,9 +123,18 @@
     renderItems();
   }
 
-  renderItems();
+  // ---- Load danh sách mặc định từ file ----
+  fetch("items.txt")
+    .then(response => response.text())
+    .then(text => {
+      const defaultItems = text.trim().split("\n").map(i => i.trim());
+      unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
+      renderItems();
+    })
+    .catch(err => {
+      console.error("Không thể tải defaultItems.txt:", err);
+    });
 </script>
 
 </body>
 </html>
-
