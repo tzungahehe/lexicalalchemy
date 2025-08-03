@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Mini Little Alchemy</title>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    background: #f0f0f0;
+  }
+  #sidebar {
+    width: 200px;
+    background: white;
+    padding: 10px;
+    border-right: 2px solid #ccc;
+    overflow-y: auto;
+  }
+  #sidebar h2 { font-size: 18px; margin: 0 0 10px; }
+  .item {
+    padding: 5px;
+    margin: 3px 0;
+    background: #d9f0ff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .item.selected {
+    background: #ffd966;
+  }
+  #playArea {
+    flex: 1;
+    padding: 20px;
+  }
+  #result {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h2>Items</h2>
+  <div id="itemsList"></div>
+</div>
+
+<div id="playArea">
+  <h2>Kết hợp 2 item</h2>
+  <p>Chọn 2 item từ danh sách bên trái để thử kết hợp.</p>
+  <div id="result"></div>
+</div>
+
+<script>
+  // ---- Dữ liệu công thức ----
+  const recipes = {
+    "Earth+Water": "Mud",
+    "Fire+Water": "Steam",
+    "Air+Water": "Rain",
+    "Love+Short": "Dalliance",
+    "Fire+Air": "Energy",
+    "Earth+Fire": "Lava",
+    "Water+Lava": "Stone"
+  };
+
+  // ---- Chuẩn hóa key ----
+  function key(item1, item2) {
+    return [item1, item2].sort().join("+");
+  }
+
+  // ---- Load tiến trình ----
+  let unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || ["Earth", "Water", "Fire", "Air", "Love", "Short"];
+
+  const itemsList = document.getElementById("itemsList");
+  const resultBox = document.getElementById("result");
+
+  let selected = [];
+
+  // ---- Vẽ danh sách item ----
+  function renderItems() {
+    itemsList.innerHTML = "";
+    unlocked.sort().forEach(item => {
+      const div = document.createElement("div");
+      div.className = "item";
+      if (selected.includes(item)) div.classList.add("selected");
+      div.textContent = item;
+      div.onclick = () => selectItem(item);
+      itemsList.appendChild(div);
+    });
+  }
+
+  // ---- Chọn item ----
+  function selectItem(item) {
+    if (selected.includes(item)) {
+      selected = selected.filter(i => i !== item);
+    } else {
+      if (selected.length < 2) {
+        selected.push(item);
+      } else {
+        selected = [item];
+      }
+    }
+    if (selected.length === 2) tryCombine();
+    renderItems();
+  }
+
+  // ---- Thử kết hợp ----
+  function tryCombine() {
+    const comboKey = key(selected[0], selected[1]);
+    const result = recipes[comboKey];
+    if (result) {
+      if (!unlocked.includes(result)) {
+        unlocked.push(result);
+        localStorage.setItem("unlockedItems", JSON.stringify(unlocked));
+        resultBox.textContent = `🎉 Bạn đã mở khóa: ${result}!`;
+      } else {
+        resultBox.textContent = `✅ Kết hợp đúng nhưng bạn đã có: ${result}.`;
+      }
+    } else {
+      resultBox.textContent = "❌ Không thể kết hợp!";
+    }
+    selected = [];
+    renderItems();
+  }
+
+  renderItems();
+</script>
+
+</body>
+</html>
