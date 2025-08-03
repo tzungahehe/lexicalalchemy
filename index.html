@@ -55,38 +55,14 @@
 </div>
 
 <script>
-  // ---- Dữ liệu công thức ----
-
+  let unlocked = [];
   let recipes = {};
-
-function loadRecipes() {
-  return fetch("recipes.txt")
-    .then(response => response.text())
-    .then(text => {
-      recipes = {};
-      text.trim().split(/\r?\n/).forEach(line => {
-        const [combo, result] = line.split("=");
-        if (combo && result) {
-          recipes[combo.trim()] = result.trim();
-        }
-      });
-    })
-    .catch(err => {
-      console.error("Không thể load recipes.txt:", err);
-    });
-}
-
-  // ---- Chuẩn hóa key ----
-  function key(item1, item2) {
-    return [item1, item2].sort().join("+");
-  }
+  let selected = [];
 
   const itemsList = document.getElementById("itemsList");
   const resultBox = document.getElementById("result");
-  let selected = [];
-  let unlocked = [];
 
-  // ---- Vẽ danh sách item ----
+  // ==== Vẽ danh sách item ====
   function renderItems() {
     itemsList.innerHTML = "";
     unlocked.sort().forEach(item => {
@@ -99,7 +75,7 @@ function loadRecipes() {
     });
   }
 
-  // ---- Chọn item ----
+  // ==== Chọn item ====
   function selectItem(item) {
     if (selected.includes(item)) {
       selected = selected.filter(i => i !== item);
@@ -114,10 +90,12 @@ function loadRecipes() {
     renderItems();
   }
 
-  // ---- Thử kết hợp ----
+  // ==== Thử kết hợp ====
   function tryCombine() {
-    const comboKey = key(selected[0], selected[1]);
-    const result = recipes[comboKey];
+    const combo1 = selected[0] + "+" + selected[1];
+    const combo2 = selected[1] + "+" + selected[0];
+    const result = recipes[combo1] || recipes[combo2];
+
     if (result) {
       if (!unlocked.includes(result)) {
         unlocked.push(result);
@@ -129,41 +107,35 @@ function loadRecipes() {
     } else {
       resultBox.textContent = "❌ Không thể kết hợp!";
     }
+
     selected = [];
     renderItems();
   }
 
-  // ---- Load danh sách mặc định từ file ----
-// ---- Load danh sách mặc định từ file ----
-Promise.all([
-  fetch("items.txt").then(res => res.text()),
-  fetch("recipes.txt").then(res => res.text())
-]).then(([itemsText, recipesText]) => {
-  
-  // Xử lý items
-  const defaultItems = itemsText.trim().split(/\r?\n/).map(i => i.trim());
-  unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
+  // ==== Load dữ liệu từ file ====
+  Promise.all([
+    fetch("items.txt").then(res => res.ok ? res.text() : Promise.reject()),
+    fetch("recipes.txt").then(res => res.ok ? res.text() : Promise.reject())
+  ]).then(([itemsText, recipesText]) => {
+    
+    // Xử lý items
+    const defaultItems = itemsText.trim().split(/\r?\n/).map(i => i.trim()).filter(i => i);
+    unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
 
-  // Xử lý recipes
-  recipes = {};
-  recipesText.trim().split(/\r?\n/).forEach(line => {
-    const [combo, result] = line.split("=");
-    if (combo && result) {
-      recipes[combo.trim()] = result.trim();
-    }
+    // Xử lý recipes
+    recipesText.trim().split(/\r?\n/).forEach(line => {
+      const [combo, result] = line.split("=");
+      if (combo && result) {
+        recipes[combo.trim()] = result.trim();
+      }
+    });
+
+    renderItems();
+  }).catch(err => {
+    console.error("Không thể load items.txt hoặc recipes.txt:", err);
+    alert("⚠ Không thể load dữ liệu. Kiểm tra lại file .txt!");
   });
-
-  // Render danh sách ban đầu
-  renderItems();
-  
-}).catch(err => {
-  console.error("Không thể tải items.txt hoặc recipes.txt:", err);
-});
-
 </script>
 
 </body>
 </html>
-
-
-
