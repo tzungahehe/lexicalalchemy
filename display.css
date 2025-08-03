@@ -1,25 +1,35 @@
 body {
   font-family: sans-serif;
-  height: 100vh;
   margin: 0;
+  height: 100vh;
+  display: flex;
   background: #f0f0f0;
+}
+
+/* ==== Sidebar ==== */
+#sidebar {
+  width: 220px;
+  background: white;
+  border-right: 2px solid #ccc;
+  padding: 10px;
   display: flex;
   flex-direction: column;
 }
 
+#sidebar h2 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
 #itemsList {
-  background: white;
-  padding: 10px;
-  border-bottom: 2px solid #ccc;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  flex: 1;
   overflow-y: auto;
-  max-height: 150px;
+  padding-right: 5px;
 }
 
 .item {
-  padding: 5px 10px;
+  padding: 5px;
+  margin: 3px 0;
   background: #d9f0ff;
   border-radius: 5px;
   cursor: pointer;
@@ -30,9 +40,11 @@ body {
   background: #ffd966;
 }
 
+/* ==== Play Area ==== */
 #playArea {
   flex: 1;
   padding: 20px;
+  overflow-y: auto;
 }
 
 #result {
