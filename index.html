@@ -56,25 +56,6 @@
 
 <script>
   // ---- Dữ liệu công thức ----
-Promise.all([
-  fetch("items.txt").then(res => res.text()),
-  fetch("recipes.txt").then(res => res.text())
-]).then(([itemsText, recipesText]) => {
-  
-  // Xử lý items
-  const defaultItems = itemsText.trim().split(/\r?\n/).map(i => i.trim());
-  unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
-
-  // Xử lý recipes
-  recipesText.trim().split(/\r?\n/).forEach(line => {
-    const [combo, result] = line.split("=");
-    if (combo && result) {
-      recipes[combo.trim()] = result.trim();
-    }
-  });
-
-  renderItems();
-});
 
   let recipes = {};
 
@@ -153,19 +134,36 @@ function loadRecipes() {
   }
 
   // ---- Load danh sách mặc định từ file ----
-  fetch("items.txt")
-    .then(response => response.text())
-    .then(text => {
-      const defaultItems = text.trim().split("\n").map(i => i.trim());
-      unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
-      renderItems();
-    })
-    .catch(err => {
-      console.error("Không thể tải defaultItems.txt:", err);
-    });
+// ---- Load danh sách mặc định từ file ----
+Promise.all([
+  fetch("items.txt").then(res => res.text()),
+  fetch("recipes.txt").then(res => res.text())
+]).then(([itemsText, recipesText]) => {
+  
+  // Xử lý items
+  const defaultItems = itemsText.trim().split(/\r?\n/).map(i => i.trim());
+  unlocked = JSON.parse(localStorage.getItem("unlockedItems")) || defaultItems;
+
+  // Xử lý recipes
+  recipes = {};
+  recipesText.trim().split(/\r?\n/).forEach(line => {
+    const [combo, result] = line.split("=");
+    if (combo && result) {
+      recipes[combo.trim()] = result.trim();
+    }
+  });
+
+  // Render danh sách ban đầu
+  renderItems();
+  
+}).catch(err => {
+  console.error("Không thể tải items.txt hoặc recipes.txt:", err);
+});
+
 </script>
 
 </body>
 </html>
+
 
 
