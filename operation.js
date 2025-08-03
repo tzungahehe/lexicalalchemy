@@ -2,21 +2,19 @@ let unlocked = [];
 let recipes = {};
 let selected = [];
 
-const playArea = document.getElementById("playArea");
+const itemsList = document.getElementById("itemsList");
 const resultBox = document.getElementById("result");
 
 // ==== Vẽ danh sách item ====
 function renderItems() {
-  // Xóa các item cũ trước khi vẽ
-  document.querySelectorAll(".item").forEach(el => el.remove());
-
+  itemsList.innerHTML = "";
   unlocked.sort().forEach(item => {
     const div = document.createElement("div");
     div.className = "item";
     if (selected.includes(item)) div.classList.add("selected");
     div.textContent = item;
     div.onclick = () => selectItem(item);
-    playArea.insertBefore(div, resultBox);
+    itemsList.appendChild(div);
   });
 }
 
