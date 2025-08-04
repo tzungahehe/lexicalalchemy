@@ -1,101 +1,64 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>Lexical Alchemy</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    height: 100vh;
-  }
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  height: 100vh;
+}
 
-  /* Sideboxes */
-  .sidebox {
-    background-color: #80bbea;
-    padding: 20px;
-    width: 200px;
-    box-sizing: border-box;
-  }
+/* Sideboxes */
+.sidebox {
+  background-color: #80bbea;
+  padding: 20px;
+  width: 200px;
+  box-sizing: border-box;
+}
 
-  /* Play area */
-  .playarea {
-    background-color: #f9c4e2;
-    flex-grow: 1;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-  }
+.sidebox h3 {
+  margin-top: 0;
+  font-weight: bold;
+}
 
-  .playarea h1 {
-    font-weight: bold;
-    font-size: 28px;
-    margin-top: 0;
-  }
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  /* Items list */
-  .item-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.item-list li {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 8px;
+  margin-bottom: 6px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .item-list li {
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 8px;
-    margin-bottom: 6px;
-    text-align: center;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+/* Play area */
+.playarea {
+  background-color: #f9c4e2;
+  flex-grow: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
 
-  /* Reset button */
-  .reset-btn {
-    background-color: #ff6f6f;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-  }
+.playarea h1 {
+  font-weight: bold;
+  font-size: 28px;
+  margin: 0;
+}
 
-  .reset-btn:hover {
-    background-color: #ff4c4c;
-  }
-</style>
-</head>
-<body>
+/* Reset button */
+.reset-btn {
+  background-color: #ff6f6f;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-<!-- Left sidebox -->
-<div class="sidebox">
-  <h3>Items</h3>
-  <ul class="item-list">
-    <li>Air</li>
-    <li>Bird</li>
-    <li>Earth</li>
-    <li>Fire</li>
-    <li>Lava</li>
-    <li>Love</li>
-    <li>Lovebird</li>
-    <li>Shit</li>
-    <li>Short</li>
-    <li>Water</li>
-  </ul>
-</div>
-
-<!-- Play area -->
-<div class="playarea">
-  <h1>LEXICAL ALCHEMY</h1>
-</div>
-
-<!-- Right sidebox -->
-<div class="sidebox">
-  <h3>Items</h3>
-  <button class="reset-btn">Reset Game</button>
-</div>
-
-</body>
-</html>
+.reset-btn:hover {
+  background-color: #ff4c4c;
+}
