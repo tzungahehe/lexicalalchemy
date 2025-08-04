@@ -84,3 +84,30 @@ document.getElementById("resetBtn").addEventListener("click", () => {
     location.reload(); // Tải lại trang để load lại items.txt gốc
   }
 });
+const searchBox = document.getElementById("search-box");
+const itemList = document.getElementById("item-list");
+const items = itemList.getElementsByTagName("li");
+
+searchBox.addEventListener("input", function () {
+    const query = this.value.trim().toLowerCase();
+    let matchCount = 0;
+
+    for (let i = 0; i < items.length; i++) {
+        const text = items[i].textContent.toLowerCase();
+
+        // Kiểm tra nếu item bắt đầu bằng chữ đã nhập
+        if (text.startsWith(query) && query !== "") {
+            items[i].style.display = "";
+            matchCount++;
+        } else {
+            items[i].style.display = "none";
+        }
+    }
+
+    // Nếu không có kết quả, ẩn tất cả
+    if (matchCount === 0) {
+        for (let i = 0; i < items.length; i++) {
+            items[i].style.display = "none";
+        }
+    }
+});
