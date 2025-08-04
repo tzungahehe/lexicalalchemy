@@ -5,6 +5,14 @@ let selected = [];
 const itemsList = document.getElementById("itemsList");
 const resultBox = document.getElementById("result");
 
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("Bạn có chắc muốn reset game về ban đầu?")) {
+    localStorage.removeItem("unlockedItems"); // Xóa dữ liệu đã lưu
+    location.reload(); // Tải lại trang để load lại items.txt gốc
+  }
+});
+
+
 // ==== Vẽ danh sách item ====
 function renderItems() {
   itemsList.innerHTML = "";
