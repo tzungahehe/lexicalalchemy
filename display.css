@@ -33,6 +33,21 @@ body {
     margin-top: 20px;
     color: #333;
   }
+#resetBtn {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  border: none;
+  background: #ff6961;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#resetBtn:hover {
+  background: #ff5c53;
+}
+
 </style>
 </head>
 <body>
@@ -41,11 +56,7 @@ body {
   <h2>Items</h2>
   <div id="itemsList"></div>
 </div>
-<div id="sidebar">
-  <h2>Items</h2>
-  <div id="itemsList"></div>
-  <button id="resetBtn">🔄 Reset Game</button>
-</div>
+
 <div id="playArea">
   <h2>Kết hợp 2 item</h2>
   <p>Chọn 2 item từ danh sách bên trái để thử kết hợp.</p>
