@@ -43,14 +43,6 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-#search-box {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    margin-bottom: 8px;
-    border-radius: 5px;
-}
 
 #resetBtn:hover {
   background: #ff5c53;
