@@ -41,7 +41,11 @@ body {
   <h2>Items</h2>
   <div id="itemsList"></div>
 </div>
-
+<div id="sidebar">
+  <h2>Items</h2>
+  <div id="itemsList"></div>
+  <button id="resetBtn">🔄 Reset Game</button>
+</div>
 <div id="playArea">
   <h2>Kết hợp 2 item</h2>
   <p>Chọn 2 item từ danh sách bên trái để thử kết hợp.</p>
