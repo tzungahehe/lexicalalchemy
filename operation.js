@@ -5,14 +5,6 @@ let selected = [];
 const itemsList = document.getElementById("itemsList");
 const resultBox = document.getElementById("result");
 
-document.getElementById("resetBtn").addEventListener("click", () => {
-  if (confirm("Bạn có chắc muốn reset game về ban đầu?")) {
-    localStorage.removeItem("unlockedItems"); // Xóa dữ liệu đã lưu
-    location.reload(); // Tải lại trang để load lại items.txt gốc
-  }
-});
-
-
 // ==== Vẽ danh sách item ====
 function renderItems() {
   itemsList.innerHTML = "";
@@ -85,4 +77,10 @@ Promise.all([
 }).catch(err => {
   console.error("Không thể load items.txt hoặc recipes.txt:", err);
   alert("⚠ Không thể load dữ liệu. Kiểm tra lại file .txt!");
+});
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("Bạn có chắc muốn reset game về ban đầu?")) {
+    localStorage.removeItem("unlockedItems"); // Xóa dữ liệu đã lưu
+    location.reload(); // Tải lại trang để load lại items.txt gốc
+  }
 });
