@@ -8,33 +8,34 @@
 </head>
 <body>
 
-<!-- Left sidebox -->
+<!-- Sidebox trái -->
 <div class="sidebox left">
   <h3>Items</h3>
   <ul class="item-list">
-    <li>Air</li>
-    <li>Bird</li>
-    <li>Earth</li>
-    <li>Fire</li>
-    <li>Lava</li>
-    <li>Love</li>
-    <li>Lovebird</li>
-    <li>Shit</li>
-    <li>Short</li>
-    <li>Water</li>
+    <li draggable="true">Air</li>
+    <li draggable="true">Bird</li>
+    <li draggable="true">Earth</li>
+    <li draggable="true">Fire</li>
+    <li draggable="true">Lava</li>
+    <li draggable="true">Love</li>
+    <li draggable="true">Lovebird</li>
+    <li draggable="true">Shit</li>
+    <li draggable="true">Short</li>
+    <li draggable="true">Water</li>
   </ul>
 </div>
 
 <!-- Play area -->
-<div class="playarea">
+<div class="playarea" id="playarea">
   <h1>LEXICAL ALCHEMY</h1>
 </div>
 
-<!-- Right sidebox -->
+<!-- Sidebox phải -->
 <div class="sidebox right">
   <h3>Items</h3>
-  <button class="reset-btn">Reset Game</button>
+  <button class="reset-btn" onclick="location.reload()">Reset Game</button>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
