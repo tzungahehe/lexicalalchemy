@@ -146,34 +146,13 @@
     function makeDraggable(el) {
       let isDragging = false;
 
-      el.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        offsetX = e.offsetX;
-        offsetY = e.offsetY;
-        el.style.cursor = "grabbing";
-      });
-
-      document.addEventListener("mousemove", (e) => {
-        if (isDragging) {
-          const rect = playarea.getBoundingClientRect();
-          el.style.left = (e.clientX - rect.left - offsetX) + "px";
-          el.style.top = (e.clientY - rect.top - offsetY) + "px";
-        }
-      });
-
-      document.addEventListener("mouseup", () => {
-        isDragging = false;
-        el.style.cursor = "grab";
-      });
-    }
-  </script>
-  <script>
-  function enableDeletionOnDrop(leftBox) {
-      leftBox.addEventListener('dragover', (e) => {
+      el.addEventListe<script>
+  function enableDeletionOnDrop(targetBox) {
+      targetBox.addEventListener('dragover', (e) => {
           e.preventDefault();
       });
 
-      leftBox.addEventListener('drop', (e) => {
+      targetBox.addEventListener('drop', (e) => {
           e.preventDefault();
           const id = e.dataTransfer.getData('text/plain');
           const draggableElement = document.getElementById(id);
@@ -208,12 +187,7 @@
       });
   }
 
-  window.onload = function () {
-      enableDragAndDrop();
-      enableDeletionOnDrop(document.getElementById('left-box'));
-  };
-</script>
-
 </body>
 </html>
+
 
