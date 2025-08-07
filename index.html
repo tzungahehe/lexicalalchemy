@@ -1,41 +1,171 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Lexical Alchemy</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="display.css">
+  <meta charset="UTF-8" />
+  <title>Lexical Alchemy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebox {
+      background-color: #80bbea;
+      padding: 20px;
+      width: 200px;
+      box-sizing: border-box;
+    }
+
+    .item-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .item-list li {
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 8px;
+      margin-bottom: 6px;
+      text-align: center;
+      border-radius: 4px;
+      cursor: grab;
+    }
+
+    .playarea {
+      background-color: #f9c4e2;
+      flex-grow: 1;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .playarea h1 {
+      font-weight: bold;
+      font-size: 28px;
+      margin: 0;
+      text-align: center;
+    }
+
+    .play-item {
+      position: absolute;
+      background-color: rgba(255,255,255,0.7);
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .reset-btn {
+      background-color: #ff6f6f;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .reset-btn:hover {
+      background-color: #ff4c4c;
+    }
+  </style>
 </head>
 <body>
 
-<!-- Sidebox trái -->
-<div class="sidebox left">
-  <h3>Items</h3>
-  <ul class="item-list">
-    <li draggable="true">Air</li>
-    <li draggable="true">Bird</li>
-    <li draggable="true">Earth</li>
-    <li draggable="true">Fire</li>
-    <li draggable="true">Lava</li>
-    <li draggable="true">Love</li>
-    <li draggable="true">Lovebird</li>
-    <li draggable="true">Shit</li>
-    <li draggable="true">Short</li>
-    <li draggable="true">Water</li>
-  </ul>
-</div>
+  <!-- Sidebox trái -->
+  <div class="sidebox left">
+    <h3>Items</h3>
+    <ul class="item-list">
+      <li draggable="true">Air</li>
+      <li draggable="true">Bird</li>
+      <li draggable="true">Earth</li>
+      <li draggable="true">Fire</li>
+      <li draggable="true">Lava</li>
+      <li draggable="true">Love</li>
+      <li draggable="true">Lovebird</li>
+      <li draggable="true">Shit</li>
+      <li draggable="true">Short</li>
+      <li draggable="true">Water</li>
+    </ul>
+  </div>
 
-<!-- Play area -->
-<div class="playarea" id="playarea">
-  <h1>LEXICAL ALCHEMY</h1>
-</div>
+  <!-- Play area -->
+  <div class="playarea" id="playarea">
+    <h1>LEXICAL ALCHEMY</h1>
+  </div>
 
-<!-- Sidebox phải -->
-<div class="sidebox right">
-  <h3>Items</h3>
-  <button class="reset-btn" onclick="location.reload()">Reset Game</button>
-</div>
+  <!-- Sidebox phải -->
+  <div class="sidebox right">
+    <h3>Items</h3>
+    <button class="reset-btn" onclick="location.reload()">Reset Game</button>
+  </div>
 
-<script src="script.js"></script>
+  <script>
+    let draggedText = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    const playarea = document.getElementById("playarea");
+
+    // Kéo từ danh sách
+    document.querySelectorAll(".item-list li").forEach(li => {
+      li.addEventListener("dragstart", (e) => {
+        draggedText = li.innerText;
+        e.dataTransfer.setData("text/plain", draggedText); // Chrome yêu cầu
+      });
+    });
+
+    // Cho phép thả
+    playarea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+    });
+
+    playarea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const text = draggedText || e.dataTransfer.getData("text/plain");
+      if (text) {
+        createPlayItem(text, e.offsetX, e.offsetY);
+      }
+      draggedText = null;
+    });
+
+    function createPlayItem(text, x, y) {
+      const el = document.createElement("div");
+      el.classList.add("play-item");
+      el.innerText = text;
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+
+      makeDraggable(el);
+      playarea.appendChild(el);
+    }
+
+    function makeDraggable(el) {
+      let isDragging = false;
+
+      el.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+        el.style.cursor = "grabbing";
+      });
+
+      document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+          const rect = playarea.getBoundingClientRect();
+          el.style.left = (e.clientX - rect.left - offsetX) + "px";
+          el.style.top = (e.clientY - rect.top - offsetY) + "px";
+        }
+      });
+
+      document.addEventListener("mouseup", () => {
+        isDragging = false;
+        el.style.cursor = "grab";
+      });
+    }
+  </script>
 </body>
 </html>
