@@ -167,5 +167,53 @@
       });
     }
   </script>
+  <script>
+  function enableDeletionOnDrop(leftBox) {
+      leftBox.addEventListener('dragover', (e) => {
+          e.preventDefault();
+      });
+
+      leftBox.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const id = e.dataTransfer.getData('text/plain');
+          const draggableElement = document.getElementById(id);
+          if (draggableElement && draggableElement.parentElement.id === 'play-area') {
+              draggableElement.remove(); // Xoá khỏi play area
+          }
+      });
+  }
+
+  function enableDragAndDrop() {
+      const draggableItems = document.querySelectorAll('.draggable');
+      const playArea = document.getElementById('play-area');
+
+      draggableItems.forEach((item) => {
+          item.setAttribute('draggable', 'true');
+          item.addEventListener('dragstart', (e) => {
+              e.dataTransfer.setData('text/plain', e.target.id);
+          });
+      });
+
+      playArea.addEventListener('dragover', (e) => {
+          e.preventDefault();
+      });
+
+      playArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const id = e.dataTransfer.getData('text/plain');
+          const draggableElement = document.getElementById(id);
+          if (draggableElement) {
+              playArea.appendChild(draggableElement);
+          }
+      });
+  }
+
+  window.onload = function () {
+      enableDragAndDrop();
+      enableDeletionOnDrop(document.getElementById('left-box'));
+  };
+</script>
+
 </body>
 </html>
+
