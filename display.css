@@ -43,11 +43,29 @@ body {
   overflow: hidden;
 }
 
+margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  height: 100vh;
+  align-items: flex-start; /* để tiêu đề và Items ngang hàng */
+}
+
+/* Tiêu đề trong playarea */
 .playarea h1 {
-  font-weight: bold;
-  font-size: 28px;
+  font-weight: 900; /* Đậm hơn */
+  font-size: 36px; /* To hơn */
   margin: 0;
   text-align: center;
+  position: relative;
+  top: 0; /* Giữ ở trên cùng vùng playarea */
+}
+
+/* Nếu muốn tiêu đề nằm ngay trên hàng đầu của danh sách Item */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px; /* chiều cao thanh tiêu đề */
 }
 
 /* Item trong play area */
