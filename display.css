@@ -53,7 +53,7 @@ margin: 0;
 /* Tiêu đề trong playarea */
 .playarea h1 {
   font-weight: 900; /* Đậm hơn */
-  font-size: 2000px;
+  font-size: 50px;
   margin: 0;
   text-align: center;
   position: relative;
